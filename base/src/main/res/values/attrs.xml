@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="baseAnimation" format="enum">
+        <enum name="Bounce" value="1"/>
+        <enum name="BounceIn" value="2"/>
+        <enum name="BounceInUp" value="3"/>
+        <enum name="BounceInDown" value="4"/>
+        <enum name="BounceInLeft" value="5"/>
+        <enum name="BounceInRight" value="6"/>
+        <enum name="FadeIn" value="7"/>
+        <enum name="FadeInUp" value="8"/>
+        <enum name="FadeInDown" value="9"/>
+        <enum name="FadeInLeft" value="10"/>
+        <enum name="FadeInRight" value="11"/>
+        <enum name="Landing" value="12"/>
+        <enum name="Pulse" value="13"/>
+        <enum name="RubberBand" value="14"/>
+        <enum name="SatandUp" value="15"/>
+        <enum name="ZoomIn" value="16"/>
+        <enum name="ZoomInUp" value="17"/>
+        <enum name="ZoomInDown" value="18"/>
+        <enum name="ZoomInLeft" value="19"/>
+        <enum name="ZoomInRight" value="20"/>
+    </attr>
+</resources>
