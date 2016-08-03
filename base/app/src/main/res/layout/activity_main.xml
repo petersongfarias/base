@@ -11,7 +11,28 @@
     tools:context="br.com.pgf.base.MainActivity">
 
     <TextView
+        android:id="@+id/myText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:alpha="0"
         android:text="Hello World!"/>
+
+    <ImageView
+        android:id="@+id/centerImage"
+        android:layout_centerInParent="true"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:alpha="0"
+        android:background="@color/colorAccent"/>
+
+    <ImageView
+        android:id="@+id/centerImage2"
+        android:layout_marginTop="20dp"
+        android:layout_below="@id/centerImage"
+        android:layout_centerHorizontal="true"
+        android:alpha="0"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:background="@color/colorPrimary"/>
+
 </RelativeLayout>

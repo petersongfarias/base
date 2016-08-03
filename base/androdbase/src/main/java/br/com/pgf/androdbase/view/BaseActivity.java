@@ -31,8 +31,8 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 
-import br.com.basemvp.R;
-import br.com.basemvp.base.holder.ActivityHolder;
+import br.com.pgf.androdbase.R;
+import br.com.pgf.androdbase.holder.ActivityHolder;
 
 /**
  * Created by peterson on 01/08/2016.
@@ -64,7 +64,7 @@ public abstract class BaseActivity<H extends ActivityHolder> extends AppCompatAc
     * @param addToBackStack flag to notify if fragment will added on back stack
     * @return true if replace content success of false
     */
-   public void replaceContent(Fragment fragment, final int content,  String tag, boolean addToBackStack) {
+   public void replaceContent(Fragment fragment, final int content, String tag, boolean addToBackStack) {
       if (addToBackStack) {
          getSupportFragmentManager()
                .beginTransaction()

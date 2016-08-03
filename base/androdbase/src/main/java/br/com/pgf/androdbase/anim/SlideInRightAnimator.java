@@ -25,8 +25,11 @@
 package br.com.pgf.androdbase.anim;
 
 import android.animation.ObjectAnimator;
+import android.content.Context;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 
 
 public class SlideInRightAnimator extends BaseViewAnimator {
@@ -34,9 +37,13 @@ public class SlideInRightAnimator extends BaseViewAnimator {
     public void prepare(View target) {
         ViewGroup parent = (ViewGroup)target.getParent();
         int distance = parent.getWidth() - target.getLeft();
+        WindowManager windowManager = (WindowManager) target.getContext().getSystemService(Context.WINDOW_SERVICE);
+        DisplayMetrics metrics = new DisplayMetrics();
+        windowManager.getDefaultDisplay().getMetrics(metrics);
+
         getAnimatorAgent().playTogether(
                 ObjectAnimator.ofFloat(target, "alpha", 0, 1),
-                ObjectAnimator.ofFloat(target,"translationX",distance,0)
+                ObjectAnimator.ofFloat(target,"translationX",metrics.widthPixels,0)
         );
     }
 }

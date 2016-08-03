@@ -30,8 +30,8 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.view.View;
 
-import br.com.basemvp.base.Presenter;
-import br.com.basemvp.base.holder.FragmentHolder;
+import br.com.pgf.androdbase.holder.FragmentHolder;
+
 
 /**
  * Created by peterson on 01/08/2016.

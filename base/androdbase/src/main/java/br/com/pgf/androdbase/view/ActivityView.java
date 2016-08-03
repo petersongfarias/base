@@ -25,7 +25,8 @@
 
 package br.com.pgf.androdbase.view;
 
-import br.com.basemvp.base.view.interact.ActivityInteract;
+
+import br.com.pgf.androdbase.view.interact.ActivityInteract;
 
 /**
  * Created by peterson on 01/08/2016.

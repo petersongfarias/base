@@ -5,7 +5,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import br.com.basemvp.base.anim.Animations;
+import br.com.pgf.androdbase.anim.Animations;
+
 
 /**
  * Created by peterson on 02/08/2016.

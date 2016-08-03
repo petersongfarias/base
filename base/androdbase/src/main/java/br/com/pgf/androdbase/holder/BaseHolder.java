@@ -33,9 +33,10 @@ import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
 
-import br.com.basemvp.base.anim.Animations;
-import br.com.basemvp.base.anim.BaseViewAnimator;
-import br.com.basemvp.base.view.anotations.Bind;
+import br.com.pgf.androdbase.anim.Animations;
+import br.com.pgf.androdbase.anim.BaseViewAnimator;
+import br.com.pgf.androdbase.view.anotations.Bind;
+
 
 /**
  * Created by peterson on 01/08/2016.
@@ -49,27 +50,29 @@ public class BaseHolder {
     *
     * @param viewGroup View group.
     */
-   protected void findAllVisibleChilds(final ViewGroup viewGroup) {
+   protected void findAllMappedChilds(final ViewGroup viewGroup) {
       try {
-         final Map<Integer, View> ordoredChilds = new HashMap<>();
+         final Map<Integer, TempField> mappedChilds = new HashMap<>();
          final Field[] fields = this.getClass().getDeclaredFields();
-         for (int childViewIndex = 0; childViewIndex < viewGroup.getChildCount(); childViewIndex++) {
-            final View childView = viewGroup.getChildAt(childViewIndex);
-            if (childView instanceof ViewGroup) {
-               findAllVisibleChilds((ViewGroup) childView);
-               continue;
-            }
-            ordoredChilds.put(childView.getId(), childView);
-         }
          for (int i = 0; i < fields.length; i++) {
             final Field field = fields[i];
             final Bind bind = field.getAnnotation(Bind.class);
-            if (ordoredChilds.containsKey(bind.id())) {
-               final View view = ordoredChilds.get(bind.id());
-               field.setAccessible(true);
-               field.set(field.getType(), ordoredChilds.get(bind.id()));
-               if(bind.enableAnimation()){
-                  animate(view, i, bind.animation());
+            final TempField tempField = new TempField(field, bind);
+            mappedChilds.put(bind.id(), tempField);
+         }
+         for (int childViewIndex = 0; childViewIndex < viewGroup.getChildCount(); childViewIndex++) {
+            final View childView = viewGroup.getChildAt(childViewIndex);
+            if (childView instanceof ViewGroup) {
+               findAllMappedChilds((ViewGroup) childView);
+               continue;
+            }
+            int id = childView.getId();
+            if(mappedChilds.containsKey(id)){
+               final TempField ttempField = mappedChilds.get(id);
+               ttempField.field.set(this, childView);
+               final Bind tbind = ttempField.bind;
+               if(tbind.enableAnimation()){
+                  animate(childView, childViewIndex, tbind.animation());
                }
             }
          }
@@ -123,5 +126,14 @@ public class BaseHolder {
       return mAnimator;
    }
 
+   class TempField{
+      public Field field;
+      public Bind bind;
+
+      public TempField(final Field field, final Bind bind){
+         this.field = field;
+         this.bind = bind;
+      }
+   }
 
 }

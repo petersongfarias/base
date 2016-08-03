@@ -29,15 +29,9 @@ import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AccelerateDecelerateInterpolator;
 
-import java.io.Serializable;
-import java.util.LinkedList;
-import java.util.List;
+import br.com.pgf.androdbase.view.interact.FragmentInteract;
 
-import br.com.basemvp.base.anim.Animations;
-import br.com.basemvp.base.anim.BaseViewAnimator;
-import br.com.basemvp.base.view.interact.FragmentInteract;
 
 public abstract class FragmentHolder extends BaseHolder{
 
