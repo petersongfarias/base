@@ -54,23 +54,27 @@ public class BaseHolder {
       try {
          final Map<Integer, TempField> mappedChilds = new HashMap<>();
          final Field[] fields = this.getClass().getDeclaredFields();
+         //get all fields with annotations
          for (int i = 0; i < fields.length; i++) {
             final Field field = fields[i];
             final Bind bind = field.getAnnotation(Bind.class);
             final TempField tempField = new TempField(field, bind);
             mappedChilds.put(bind.id(), tempField);
          }
+         //get all childView from viewGroup ordered
          for (int childViewIndex = 0; childViewIndex < viewGroup.getChildCount(); childViewIndex++) {
             final View childView = viewGroup.getChildAt(childViewIndex);
             if (childView instanceof ViewGroup) {
                findAllMappedChilds((ViewGroup) childView);
                continue;
             }
+            //find and set view in mapped field
             int id = childView.getId();
             if(mappedChilds.containsKey(id)){
                final TempField ttempField = mappedChilds.get(id);
                ttempField.field.set(this, childView);
                final Bind tbind = ttempField.bind;
+               //check if view has animation and execute this
                if(tbind.enableAnimation()){
                   animate(childView, childViewIndex, tbind.animation());
                }

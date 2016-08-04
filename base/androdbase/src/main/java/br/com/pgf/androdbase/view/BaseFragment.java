@@ -57,7 +57,7 @@ public abstract class BaseFragment<H extends FragmentHolder> extends Fragment im
    }
 
    /**
-    *
+    * Replace content
     * @param fragment Component to replace
     * @param content parent that will receive the fragment
     * @param tag identifier fragment

@@ -12,7 +12,7 @@ import br.com.pgf.androdbase.anim.Animations;
  * Created by peterson on 02/08/2016.
  */
 
-@Retention(RetentionPolicy.RUNTIME)
+@Retention(RetentionPolicy.CLASS)
 @Target(ElementType.FIELD)
 public @interface Bind {
 

@@ -57,7 +57,7 @@ public abstract class BaseActivity<H extends ActivityHolder> extends AppCompatAc
    }
 
    /**
-    *
+    * Replace content
     * @param fragment Component to replace
     * @param content parent that will receive the fragment
     * @param tag identifier fragment
