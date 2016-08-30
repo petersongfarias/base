@@ -1,4 +1,7 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.jfrog.bintray'
+apply plugin: 'com.github.dcendents.android-maven'
+
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.2"
@@ -15,6 +18,52 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+}
+
+group = 'com.github.pgf.base' // Change this to match your package name
+version = '0.0.1'
+
+task generateSourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier 'sources'
+}
+
+task generateJavadocs(type: Javadoc) {
+    source = android.sourceSets.main.java.srcDirs
+    classpath += project.files(android.getBootClasspath()
+            .join(File.pathSeparator))
+}
+
+task generateJavadocsJar(type: Jar) {
+    from generateJavadocs.destinationDir
+    classifier 'javadoc'
+}
+
+generateJavadocsJar.dependsOn generateJavadocs
+
+artifacts {
+    archives generateJavadocsJar
+    archives generateSourcesJar
+}
+
+bintray {
+    user = 'petersondesenv'
+    key = '8befc8817e39867cf2dbb090f46c6ff1a2ce8ac9'
+    pkg {
+        repo = 'maven'
+        name = 'com.github.pgf.base'
+
+        version {
+            name = '0.0.1'
+            desc = 'Android Base V1'
+            vcsTag = '0.0.1'
+        }
+
+        licenses = ['MIT']
+        vcsUrl = 'https://github.com/petersongfarias/base.git'
+        websiteUrl = 'https://github.com/petersongfarias/base/tree/master/base'
+    }
+    configurations = ['archives']
 }
 
 dependencies {

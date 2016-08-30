@@ -66,7 +66,7 @@ public abstract class ActivityHolder extends BaseHolder {
     * Return main layout
     * @return ViewGroup
     */
-   protected ViewGroup getViewGroup(){
+   public ViewGroup getViewGroup(){
       final ViewGroup viewGroup = (ViewGroup) ((ViewGroup)
             findViewById(android.R.id.content)).getChildAt(0);
       return viewGroup;

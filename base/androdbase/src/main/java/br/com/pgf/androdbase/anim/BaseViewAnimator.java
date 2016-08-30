@@ -35,7 +35,7 @@ import android.view.animation.Interpolator;
  */
 public abstract class BaseViewAnimator {
 
-    public static final long DURATION = 500;
+    public static final long DURATION = 400;
     public static final long DELAY = DURATION + 1;
 
     private AnimatorSet mAnimatorSet;

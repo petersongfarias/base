@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <TextView
+        android:alpha="0"
+        android:id="@+id/text1"
+        android:padding="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="4 dias – Saída dia 27 de novembro."/>
+
+    <TextView
+        android:alpha="0"
+        android:id="@+id/text2"
+        android:padding="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Pacote inclui passagens aéreas, 3 noites de hospedagem na Pousada Repouso das Flores com café da Manhã"/>
+
+    <TextView
+        android:alpha="0"
+        android:id="@+id/text3"
+        android:padding="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="4 dias – Saída dia 27 de novembro."/>
+
+    <TextView
+        android:alpha="0"
+        android:id="@+id/text4"
+        android:padding="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="3 noites de hospedagem na Pousada Repouso das Flores com café da Manhã"/>
+
+    <TextView
+        android:alpha="0"
+        android:id="@+id/text5"
+        android:padding="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="4 dias – Saída dia 27 de novembro. \nPacote inclui passagens aéreas, 3 noites de hospedagem na Pousada Repouso das Flores com café da Manhã"/>
+
+</LinearLayout>

@@ -25,14 +25,21 @@
 
 package br.com.pgf.androdbase.view;
 
+import android.animation.Animator;
+import android.animation.ObjectAnimator;
 import android.app.ProgressDialog;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.view.ViewAnimationUtils;
+import android.view.animation.AccelerateInterpolator;
 
 import br.com.pgf.androdbase.R;
 import br.com.pgf.androdbase.holder.ActivityHolder;
+import br.com.pgf.androdbase.view.widget.RevealBackgroundRelativeLayout;
 
 /**
  * Created by peterson on 01/08/2016.
@@ -51,16 +58,17 @@ public abstract class BaseActivity<H extends ActivityHolder> extends AppCompatAc
    @Override
    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
       super.onPostCreate(savedInstanceState);
-      if(holder == null){
+      if (holder == null) {
          mapUI();
       }
    }
 
    /**
     * Replace content
-    * @param fragment Component to replace
-    * @param content parent that will receive the fragment
-    * @param tag identifier fragment
+    *
+    * @param fragment       Component to replace
+    * @param content        parent that will receive the fragment
+    * @param tag            identifier fragment
     * @param addToBackStack flag to notify if fragment will added on back stack
     * @return true if replace content success of false
     */
@@ -71,7 +79,7 @@ public abstract class BaseActivity<H extends ActivityHolder> extends AppCompatAc
                .setCustomAnimations(R.anim.slide_from_right, R.anim.slide_to_left, R.anim.slide_from_left, R.anim.slide_to_right)
                .replace(content, fragment, tag)
                .addToBackStack(tag)
-               .commit();
+               .commitAllowingStateLoss();
       } else {
          getSupportFragmentManager()
                .beginTransaction()
@@ -83,6 +91,7 @@ public abstract class BaseActivity<H extends ActivityHolder> extends AppCompatAc
 
    /**
     * show progress dialog on execute actions
+    *
     * @param msg message to show on progress dialog
     */
    protected void showProgressDialog(final String msg) {
@@ -104,5 +113,50 @@ public abstract class BaseActivity<H extends ActivityHolder> extends AppCompatAc
          progressDialog = null;
       }
    }
+
+   protected void startRevelAnimation(View root, final RevealBackgroundRelativeLayout view, final int x, final int y, final float startRadius) {
+      root.post(new Runnable() {
+                   @Override
+                   public void run() {
+                      float radius = (float) Math.hypot(view.getRight(), view.getBottom());
+                      Animator retAnimator;
+                      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                         retAnimator = ViewAnimationUtils.createCircularReveal(view, x, y, startRadius, radius);
+                      } else {
+                         view.setClipOutLines(true);
+                         view.setClipCenter(x, y);
+                         view.setClipRadius(startRadius);
+                         retAnimator = ObjectAnimator.ofFloat(view, "clipRadius", startRadius, radius);
+                      }
+                      retAnimator.setDuration(500);
+                      retAnimator.addListener(new Animator.AnimatorListener() {
+                         @Override
+                         public void onAnimationStart(Animator animation) {
+
+                         }
+
+                         @Override
+                         public void onAnimationEnd(Animator animation) {
+                            view.setClipOutLines(false);
+
+                         }
+
+                         @Override
+                         public void onAnimationCancel(Animator animation) {
+
+                         }
+
+                         @Override
+                         public void onAnimationRepeat(Animator animation) {
+
+                         }
+                      });
+                      retAnimator.setInterpolator(new AccelerateInterpolator(2.0f));
+                      retAnimator.start();
+                   }
+                }
+      );
+   }
+
 
 }

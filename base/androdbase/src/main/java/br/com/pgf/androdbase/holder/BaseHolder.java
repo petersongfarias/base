@@ -61,6 +61,14 @@ public class BaseHolder {
             final TempField tempField = new TempField(field, bind);
             mappedChilds.put(bind.id(), tempField);
          }
+         if(mappedChilds.containsKey(viewGroup.getId())) {
+            //check if viewGroup is mapped
+            final TempField ttempField = mappedChilds.get(viewGroup.getId());
+            if(ttempField != null){
+               ttempField.field.set(this, viewGroup);
+            }
+         }
+
          //get all childView from viewGroup ordered
          for (int childViewIndex = 0; childViewIndex < viewGroup.getChildCount(); childViewIndex++) {
             final View childView = viewGroup.getChildAt(childViewIndex);
