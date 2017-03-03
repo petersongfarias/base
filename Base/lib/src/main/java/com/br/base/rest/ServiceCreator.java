@@ -1,6 +1,5 @@
 package com.br.base.rest;
 
-import com.br.base.BuildConfig;
 import com.br.base.utils.Constants;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -16,10 +15,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ServiceCreator {
 
     private static OkHttpClient httpClient = Client.getClient();
-
+    public static String BASE_URL;
     private static Retrofit.Builder builder =
             new Retrofit.Builder()
-                    .baseUrl(BuildConfig.BASE_URL)
+                    .baseUrl(BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create());
 
     public static <S> S createService(Class<S> serviceClass) {
@@ -29,5 +28,9 @@ public class ServiceCreator {
                 .addConverterFactory(GsonConverterFactory.create(gsonDateFormat))
                 .build();
         return retrofit.create(serviceClass);
+    }
+
+    public static final void putBaseURL(final String baseURL){
+        BASE_URL = baseURL;
     }
 }

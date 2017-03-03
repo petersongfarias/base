@@ -12,7 +12,7 @@ android {
         minSdkVersion 16
         targetSdkVersion 25
         versionCode 1
-        versionName "1.0"
+        versionName "1.0.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -23,6 +23,33 @@ android {
     }
 }
 
+group = 'br.com.base'
+version = '1.0.0'
+
+bintray {
+    user = 'petersongfarias'
+    key = '1078761849705dc87bf5de5977c773e7fa04d237'
+    filesSpec {
+        from 'build/libs'
+        into '.'
+    }
+
+    pkg {
+        repo = 'maven'
+        name = 'BaseAndroid'
+        desc = 'Base Android Utilities'
+        licenses = ['Apache-2.0']
+        vcsUrl = 'https://github.com/petersongfarias/base.git'
+        labels = ['BaseAndroid', 'baseAndroid', 'base-android']
+        publicDownloadNumbers = true
+        version {
+            name = '1.0.0-Experimental'
+            desc = 'Base Android Utilities Experimental Version'
+            vcsTag = '1.0.0'
+            attributes = ['gradle-plugin': 'com.use.less:com.use.less.gradle:gradle-useless-plugin']
+        }
+    }
+}
 
 final ANDROID_SUPPORT_VERSION = '25.1.0'
 final BUTTERKNIFE_VERSION = '7.0.1'
@@ -31,8 +58,6 @@ final LOGGIN_INTERCEPTOR_VERSION = '3.4.1'
 final RETROFIT_VERSION = '2.1.0'
 final GSON_VERSION = '2.7'
 final JUINT_VERSION = '4.12'
-
-
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
