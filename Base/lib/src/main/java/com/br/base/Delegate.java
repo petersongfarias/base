@@ -68,6 +68,7 @@ public abstract class Delegate<M, V extends BaseView, P extends Presenter> {
         checkPresenter();
         checkPresentationModel();
         mPresenter.attachView(mvpView, mPresentationModel);
+        mPresenter.start();
     }
 
     /**
@@ -78,6 +79,7 @@ public abstract class Delegate<M, V extends BaseView, P extends Presenter> {
     public void onStop() {
         checkPresenter();
         mPresenter.detachView();
+        mPresenter.pause();
     }
 
     /**
@@ -90,6 +92,7 @@ public abstract class Delegate<M, V extends BaseView, P extends Presenter> {
     public void onDestroy() {
         checkPresenter();
         mPresenter.detachView();
+        mPresenter.pause();
     }
 
     /**

@@ -15,7 +15,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ServiceCreator {
 
     private static OkHttpClient httpClient = Client.getClient();
-    public static String BASE_URL;
+    private static String BASE_URL;
     private static Retrofit.Builder builder =
             new Retrofit.Builder()
                     .baseUrl(BASE_URL)

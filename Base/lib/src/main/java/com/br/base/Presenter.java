@@ -1,7 +1,7 @@
 package com.br.base;
 
 
-import java.lang.ref.WeakReference;
+import java.lang.ref.SoftReference;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 
@@ -11,9 +11,9 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public abstract class Presenter<M, V extends BaseView> {
 
-    private WeakReference<V> mView;
+    private SoftReference<V> mView;
 
-    private WeakReference<M> mPresentationModel;
+    private SoftReference<M> mPresentationModel;
 
     protected AtomicBoolean isViewAlive = new AtomicBoolean();
 
@@ -26,8 +26,8 @@ public abstract class Presenter<M, V extends BaseView> {
     }
 
     public void attachView(V view, M presentationModel) {
-        this.mView = new WeakReference<>(view);
-        this.mPresentationModel = new WeakReference<M>(presentationModel);
+        this.mView = new SoftReference<>(view);
+        this.mPresentationModel = new SoftReference<M>(presentationModel);
     }
 
     public void detachView() {

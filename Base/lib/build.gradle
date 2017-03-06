@@ -1,6 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'com.jfrog.bintray'
-
+apply plugin: 'com.github.dcendents.android-maven'
 
 android {
     compileSdkVersion 25
@@ -26,27 +26,77 @@ android {
 group = 'br.com.base'
 version = '1.0.0'
 
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+
+task javadoc(type: Javadoc) {
+    source = android.sourceSets.main.java.srcDirs
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+}
+
+artifacts {
+    archives sourcesJar
+}
+
+install {
+    repositories.mavenInstaller {
+        pom.project {
+            name 'Base Android'
+            description 'A Simple Android utility library'
+            url 'https://github.com/petersongfarias/base'
+            inceptionYear '2017'
+
+            packaging 'aar'
+            groupId 'br.com.base'
+            artifactId 'lib'
+            version '1.0.0'
+
+            licenses {
+                license {
+                    name 'Apache License Version 2.0 '
+                    url 'https://www.apache.org/licenses/LICENSE-2.0'
+                }
+            }
+            scm {
+                connection 'https://github.com/petersongfarias/base.git'
+                url 'https://github.com/petersongfarias/base'
+
+            }
+            developers {
+                developer {
+                    id = 'petersongfarias'
+                    name 'Peterson Farias'
+                }
+            }
+        }
+    }
+}
+
 bintray {
     user = 'petersongfarias'
     key = '1078761849705dc87bf5de5977c773e7fa04d237'
+    configurations = ['archives']
     filesSpec {
         from 'build/libs'
         into '.'
     }
 
     pkg {
-        repo = 'maven'
+        repo = 'Base'
         name = 'BaseAndroid'
         desc = 'Base Android Utilities'
         licenses = ['Apache-2.0']
         vcsUrl = 'https://github.com/petersongfarias/base.git'
-        labels = ['BaseAndroid', 'baseAndroid', 'base-android']
+        labels = ['BaseAndroid']
         publicDownloadNumbers = true
+        publish = true
         version {
-            name = '1.0.0-Experimental'
+            name = '1.0.0'
             desc = 'Base Android Utilities Experimental Version'
             vcsTag = '1.0.0'
-            attributes = ['gradle-plugin': 'com.use.less:com.use.less.gradle:gradle-useless-plugin']
+            released = new Date()
         }
     }
 }

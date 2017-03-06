@@ -68,7 +68,7 @@ public final class Base {
         return Looper.myLooper() == Looper.getMainLooper();
     }
 
-    public static class MicroBus {
+    static class MicroBus {
 
 
         public interface BusEventReceiver {
@@ -76,20 +76,26 @@ public final class Base {
         }
 
         private int priority = Thread.NORM_PRIORITY;
-        private HashMap<Class<?>, ArrayList<BusEventReceiver>> receivers = new HashMap<Class<?>, ArrayList<BusEventReceiver>>();
+        private final HashMap<Class<?>, ArrayList<BusEventReceiver>> receivers = new HashMap<>();
 
-        public void register(BusEventReceiver receiver, Class<?> cls) {
-            ArrayList<BusEventReceiver> list = receivers.get(cls);
-            if (list == null)
-                receivers.put(cls, list = new ArrayList<BusEventReceiver>());
+        public final void register(BusEventReceiver receiver, Class<?> cls) {
+            synchronized (receivers){
+                ArrayList<BusEventReceiver> list = receivers.get(cls);
+                if (list == null)
+                    receivers.put(cls, list = new ArrayList<BusEventReceiver>());
 
-            list.add(receiver);
+                list.add(receiver);
+            }
         }
 
-        public void unregister(BusEventReceiver receiver, Class<?> cls) {
-            ArrayList<BusEventReceiver> list = receivers.get(cls);
-            if (list != null)
-                list.remove(receiver);
+        public final void unregister(BusEventReceiver receiver, Class<?> cls) {
+            synchronized (receivers){
+                ArrayList<BusEventReceiver> list = receivers.get(cls);
+
+                if (list != null){
+                    list.remove(receiver);
+                }
+            }
         }
 
         public void post(Object event) {
@@ -100,7 +106,7 @@ public final class Base {
             }
         }
 
-        public void postAsync(final Object event) {
+        public final void postAsync(final Object event) {
             Runnable runnable = new Runnable() {
                 @Override
                 public void run() {
